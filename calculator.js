@@ -2,7 +2,7 @@ const display = document.querySelector('#display');
 display.textContent = '';
 
 const operators = ['+', '-', '/', '*'];
-operator = '';
+let operator = '';
 let i = 0;
 
 
@@ -11,7 +11,7 @@ buttons.map(button => button.addEventListener('click', () => {
     if (button.value == 'clear')
         display.textContent = '';
     else if (button.value == 'operate')
-        check(display.textContent, operator)
+        check(display.textContent, operator);
     else
         display.textContent += `${button.value}`
 }));
@@ -24,8 +24,7 @@ function check(text, operator){
     }
     if (i <= 4)
         console.log(operator);
-    else
-        console.log('no operator');
+        operate(text, operator);
 }
 
 function operate(text, operator) {
@@ -33,9 +32,9 @@ function operate(text, operator) {
     const a = operands[0];
     const b = operands[1];
     switch(operator) {
-        case '+': return a + b;
-        case '-': return a - b; 
-        case '/': return a / b;
-        case '*': return a * b;
+        case '+': display.textContent = a + b; break;
+        case '-': display.textContent = a - b; break;
+        case '/': display.textContent = a / b; break;
+        case '*': display.textContent = a * b; break;
     }
 }
