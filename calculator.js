@@ -1,7 +1,10 @@
-const a = 20;
-const b = 4;
-operator = '';
+const buttons = Array.from(document.querySelectorAll('button'));
+buttons.map(button => button.addEventListener('click', () =>
+    console.log(button.value)));
 
+    
+function test(){
+}
 function operate(operator) {
     switch(operator){
         case '+':
@@ -14,5 +17,3 @@ function operate(operator) {
             return a * b;
     }
 }
-
-console.log(operate('-'));
