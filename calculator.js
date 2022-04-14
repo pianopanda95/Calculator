@@ -9,22 +9,27 @@ let i = 0;
 const buttons = Array.from(document.querySelectorAll('button'));
 buttons.map(button => button.addEventListener('click', () => {
     if (button.value == 'clear')
-        display.textContent = '';
+        reset();
     else if (button.value == 'operate')
-        check(display.textContent, operator);
+        opCheck(display.textContent, operator);
     else
         display.textContent += `${button.value}`
 }));
 
-function check(text, operator){
+function opCheck(text, operator){
+    i = 0;
     while (i < operators.length && operator == '') {
         if (text.split('').includes(operators[i]))
-            operator = operators[i];
-        i++;    
+            operator = operators[i--];
+        i++;
     }
-    if (i <= 4)
+    console.log(i);
+    if (i < 4) {
         console.log(operator);
         operate(text, operator);
+    } else {
+        console.log('Sg went wrong');
+    }
 }
 
 function operate(text, operator) {
@@ -37,4 +42,10 @@ function operate(text, operator) {
         case '/': display.textContent = a / b; break;
         case '*': display.textContent = a * b; break;
     }
+}
+
+function reset(){
+    display.textContent = '';
+    i = 0;
+    operator = '';
 }
