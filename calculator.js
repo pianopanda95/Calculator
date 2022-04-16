@@ -19,8 +19,9 @@ buttons.map(button => button.addEventListener('click', () => {
 
 function checkOp(text, operator) {
     const check1 = text.split('');
-    const checkOperator = check1.filter(a => operators.includes(a));
-
+    checkEnds(check1);
+    checkUnary(check1);
+    const checkOperator = check1.filter(a => operators.includes(a));        
     if (checkOperator.length == 0)
         console.log('No operator');
     else if (checkOperator.length > 1) {
@@ -28,13 +29,24 @@ function checkOp(text, operator) {
         checkUnary(check1);
     }
     else if (checkOperator.length == 1) {
-        console.log('Check position!');
         operator = checkOperator[0];
-        if (operator == check1[0] || operator == check1[check1.length-1])
-            console.log('Error - wrong position.. or check unary');
-        else    
-            console.log('Continue');
+        console.log(operator);
     }
+}
+
+function checkEnds(check1) {
+    console.log('Check ends');
+    if (!numbers.includes(check1[check1.length-1]))
+        console.log('Cannot end with operator');
+    else if (!numbers.includes(check1[0])){
+        if (operators.includes(check1[0])) {
+        (unaries.includes(check1[0])) ?
+        console.log('Unary at begining') :
+        console.log('Operator at begining');
+        }
+    }
+    else
+        console.log('Continue')
 }
 
 function checkUnary (check1) {
