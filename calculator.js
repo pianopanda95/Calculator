@@ -1,10 +1,11 @@
-const display = document.querySelector('#display');
-display.textContent = '';
-
+const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const operators = ['+', '-', '/', '*'];
+const unaries = ['+', '-'];
 let operator = '';
 let i = 0;
 
+const display = document.querySelector('#display');
+display.textContent = '';
 
 const buttons = Array.from(document.querySelectorAll('button'));
 buttons.map(button => button.addEventListener('click', () => {
@@ -18,23 +19,31 @@ buttons.map(button => button.addEventListener('click', () => {
 
 function checkOp(text, operator) {
     const check1 = text.split('');
-    console.log(check1);
-
     const checkOperator = check1.filter(a => operators.includes(a));
-    console.log(checkOperator);
 
     if (checkOperator.length == 0)
         console.log('No operator');
-    else if (checkOperator.length > 1)
-        console.log('Error - too many operators or just "+num" or "-num".....');
-    else if (checkOperator.length == 1){
+    else if (checkOperator.length > 1) {
+        console.log('Error or unary');
+        checkUnary(check1);
+    }
+    else if (checkOperator.length == 1) {
         console.log('Check position!');
         operator = checkOperator[0];
         if (operator == check1[0] || operator == check1[check1.length-1])
-            console.log('Error - wrong position');
+            console.log('Error - wrong position.. or check unary');
         else    
             console.log('Continue');
     }
+}
+
+function checkUnary (check1) {
+    for (i = 0; i < check1.length; i++)
+        if (unaries.includes(check1[i]))
+            if (numbers.includes(check1[i+1]))
+                if (operators.includes(check1[i-1]))
+                    if (numbers.includes(check1[i-2]))
+                        console.log('We have unary');
 }
 
 function operate(text, operator) {
