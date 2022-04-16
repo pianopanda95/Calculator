@@ -11,24 +11,29 @@ buttons.map(button => button.addEventListener('click', () => {
     if (button.value == 'clear')
         reset();
     else if (button.value == 'operate')
-        opCheck(display.textContent, operator);
+        checkOp(display.textContent, operator);
     else
         display.textContent += `${button.value}`
 }));
 
-function opCheck(text, operator){
-    i = 0;
-    while (i < operators.length && operator == '') {
-        if (text.split('').includes(operators[i]))
-            operator = operators[i--];
-        i++;
-    }
-    console.log(i);
-    if (i < 4) {
-        console.log(operator);
-        operate(text, operator);
-    } else {
-        console.log('Sg went wrong');
+function checkOp(text, operator) {
+    const check1 = text.split('');
+    console.log(check1);
+
+    const checkOperator = check1.filter(a => operators.includes(a));
+    console.log(checkOperator);
+
+    if (checkOperator.length == 0)
+        console.log('No operator');
+    else if (checkOperator.length > 1)
+        console.log('Error - too many operators or just "+num" or "-num".....');
+    else if (checkOperator.length == 1){
+        console.log('Check position!');
+        operator = checkOperator[0];
+        if (operator == check1[0] || operator == check1[check1.length-1])
+            console.log('Error - wrong position');
+        else    
+            console.log('Continue');
     }
 }
 
