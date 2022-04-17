@@ -1,32 +1,36 @@
 body {
     background-color: grey;
-    font-size: 30px;
+    font-size: 36px;
 }
 
 #container {
     display: grid;
     grid-template-columns: auto auto auto auto;
     text-align: center;
-    margin: 10%;
-    border: 4px double black;
+    background-color: rgb(243, 193, 54);
+    margin: 15% 25%;
+    border: 5px double black;
     border-radius: 20px;
-    padding: 5px;
+    padding: 10px;
 }
 
 #display {
     grid-column-start: 1;
     grid-column-end: 5;
     background-color: aqua;
-    padding: 10px;
     border-radius: 10px;
-    height: 30px;
-
+    border: 1px solid black; 
+    padding-top: 40px;
+    height: 80px;
+    margin: 10px 5px;
 }
 
 button {
-    background-color: azure;
+    background-color: rgb(212, 241, 241);
+    border-radius: 5px;
     padding: 15px;
-    text-align: center;
     font-size: 24px;
+    height: 80px;
+    text-align: center;
     margin: 2px;
 }
