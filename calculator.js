@@ -2,7 +2,9 @@ const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const operators = ['+', '-', '/', '*'];
 const unaries = ['+', '-'];
 let operator = '';
-let i = 0;
+let startsWithUnary = false;
+let error = false;
+
 
 const display = document.querySelector('#display');
 display.textContent = '';
@@ -46,13 +48,13 @@ function checkStart(check1) {
     console.log('Check start');
     if (operators.includes(check1[0])) {
         (!unaries.includes(check1[0])) ?
-        console.log('Invalid begining') :
+        error = true :
         (numbers.includes(check1[1])) ?
-        console.log('Unary at begining') :
-        console.log('Invalid begining');
+        startsWithUnary = true :
+        error = true;
     }
     else
-        console.log('Continue')
+        error = false;
 }
 
 
