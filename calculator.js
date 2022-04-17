@@ -18,19 +18,22 @@ buttons.map(button => button.addEventListener('click', () => {
 }));
 
 const operatorButtons = Array.from(document.querySelectorAll('.operator'));
-operatorButtons.map(opbtn => opbtn.addEventListener('click', (e) =>
-console.log(e.target.value)));
+operatorButtons.map(opbtn => opbtn.addEventListener('click', () =>
+checkOp(display.textContent, operator)));
 
 
+//work on: begining check - no operator
 function checkOp(text, operator) {
     const check1 = text.split('');
-    checkEnds(check1);
-    checkUnary(check1);
+    check1.pop();
+    checkStart(check1);
+    checkEnd(check1);
     const checkOperator = check1.filter(a => operators.includes(a));        
     if (checkOperator.length == 0)
         console.log('No operator');
     else if (checkOperator.length > 1) {
         console.log('Error or unary');
+        checkUnary(check1);
     }
     else if (checkOperator.length == 1) {
         operator = checkOperator[0];
