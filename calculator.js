@@ -17,6 +17,11 @@ buttons.map(button => button.addEventListener('click', () => {
         display.textContent += `${button.value}`
 }));
 
+const operatorButtons = Array.from(document.querySelectorAll('.operator'));
+operatorButtons.map(opbtn => opbtn.addEventListener('click', (e) =>
+console.log(e.target.value)));
+
+
 function checkOp(text, operator) {
     const check1 = text.split('');
     checkEnds(check1);
@@ -26,7 +31,6 @@ function checkOp(text, operator) {
         console.log('No operator');
     else if (checkOperator.length > 1) {
         console.log('Error or unary');
-        checkUnary(check1);
     }
     else if (checkOperator.length == 1) {
         operator = checkOperator[0];
@@ -34,20 +38,29 @@ function checkOp(text, operator) {
     }
 }
 
-function checkEnds(check1) {
-    console.log('Check ends');
-    if (!numbers.includes(check1[check1.length-1]))
-        console.log('Cannot end with operator');
-    else if (!numbers.includes(check1[0])){
-        if (operators.includes(check1[0])) {
-        (unaries.includes(check1[0])) ?
+
+function checkStart(check1) {
+    console.log('Check start');
+    if (operators.includes(check1[0])) {
+        (!unaries.includes(check1[0])) ?
+        console.log('Invalid begining') :
+        (numbers.includes(check1[1])) ?
         console.log('Unary at begining') :
-        console.log('Operator at begining');
-        }
+        console.log('Invalid begining');
     }
     else
         console.log('Continue')
 }
+
+
+function checkEnd(check1) {
+    console.log('Check end');
+    if (!numbers.includes(check1[check1.length-1]))
+        console.log('Cannot end with operator');
+    else
+        console.log('Continue')
+}
+
 
 function checkUnary (check1) {
     for (i = 0; i < check1.length; i++)
