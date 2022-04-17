@@ -19,28 +19,37 @@ buttons.map(button => button.addEventListener('click', () => {
         display.textContent += `${button.value}`
 }));
 
-const operatorButtons = Array.from(document.querySelectorAll('.operator'));
-operatorButtons.map(opbtn => opbtn.addEventListener('click', () =>
-checkOp(display.textContent, operator)));
+
+//const operatorButtons = Array.from(document.querySelectorAll('.operator'));
+//operatorButtons.map(opbtn => opbtn.addEventListener('click', () =>
+//checkOp(display.textContent, operator)));
 
 
-//work on: begining check - no operator
 function checkOp(text, operator) {
     const check1 = text.split('');
-    check1.pop();
+    const checkOperator = check1.filter(a => operators.includes(a));
+    let opsLength = checkOperator.length;
+    
     checkStart(check1);
-    checkEnd(check1);
-    const checkOperator = check1.filter(a => operators.includes(a));        
-    if (checkOperator.length == 0)
-        console.log('No operator');
-    else if (checkOperator.length > 1) {
-        console.log('Error or unary');
-        checkUnary(check1);
-    }
-    else if (checkOperator.length == 1) {
+    console.log(startsWithUnary);
+    console.log(error);
+
+    if (opsLength == 0)
+        operator = 'none';
+    else if (opsLength == 1) {
+        (startsWithUnary == true) ?
+        operator = 'none':
         operator = checkOperator[0];
-        console.log(operator);
     }
+    else if (opsLength > 1) {
+        (startsWithUnary == true) ?
+        operator = checkOperator[1]:
+        operator = checkOperator[0];
+    }
+    console.log(operator);
+    if (operator != 'none' && error == false)
+        operate(text, operator);
+    // if operation button invokes the function check1.pop();
 }
 
 
@@ -67,25 +76,21 @@ function checkEnd(check1) {
 }
 
 
-function checkUnary (check1) {
-    for (i = 0; i < check1.length; i++)
-        if (unaries.includes(check1[i]))
-            if (numbers.includes(check1[i+1]))
-                if (operators.includes(check1[i-1]))
-                    if (numbers.includes(check1[i-2]))
-                        console.log('We have unary');
-}
-
 function operate(text, operator) {
     const operands = text.split(`${operator}`).map(x => Number(x));
     const a = operands[0];
     const b = operands[1];
-    switch(operator) {
-        case '+': display.textContent = a + b; break;
-        case '-': display.textContent = a - b; break;
-        case '/': display.textContent = a / b; break;
-        case '*': display.textContent = a * b; break;
+    if (isNaN(b))
+        error = true;
+    else {
+        switch(operator) {
+            case '+': display.textContent = a + b; break;
+            case '-': display.textContent = a - b; break;
+            case '/': display.textContent = a / b; break;
+            case '*': display.textContent = a * b; break;
+        }
     }
+    console.log(`Error in operation : ${error}`);
 }
 
 function reset(){
