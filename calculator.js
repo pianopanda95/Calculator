@@ -14,8 +14,8 @@ buttons.map(button => button.addEventListener('click', () => {
     if (button.value == 'clear')
         reset();
     else if (button.value == 'operate')
-        checkOp(display.textContent, operator);
-    else
+        findOperator(display.textContent, operator);
+    else 
         display.textContent += `${button.value}`
 }));
 
@@ -25,30 +25,33 @@ buttons.map(button => button.addEventListener('click', () => {
 //checkOp(display.textContent, operator)));
 
 
-function checkOp(text, operator) {
+function findOperator(text, operator) {
     const check1 = text.split('');
     const checkOperator = check1.filter(a => operators.includes(a));
     let opsLength = checkOperator.length;
     
     checkStart(check1);
-    console.log(startsWithUnary);
-    console.log(error);
+    if (error)
+        return; //errorfunction
 
     if (opsLength == 0)
         operator = 'none';
     else if (opsLength == 1) {
-        (startsWithUnary == true) ?
+        (startsWithUnary) ?
         operator = 'none':
         operator = checkOperator[0];
     }
     else if (opsLength > 1) {
-        (startsWithUnary == true) ?
+        (startsWithUnary) ?
         operator = checkOperator[1]:
         operator = checkOperator[0];
     }
     console.log(operator);
-    if (operator != 'none' && error == false)
-        operate(text, operator);
+    if (operator == 'none')
+        console.log('Displaytext stays')
+    else
+        checkOperation(text, operator, startsWithUnary);
+
     // if operation button invokes the function check1.pop();
 }
 
@@ -66,6 +69,27 @@ function checkStart(check1) {
         error = false;
 }
 
+function checkOperation(text, operator, startsWithUnary){
+    const separatorIndex = text.indexOf(`${operator}`, startsWithUnary);
+    const check2 = Array.from(text);
+    check2[separatorIndex] = '|';
+    const check3 = check2.join('').split('|');
+
+    console.log(separatorIndex);
+    console.log(check2);
+    console.log(check3);
+
+    const operands = check3.map(x => Number(x));
+    const a = operands[0];
+    const b = operands[1];
+    
+    console.log(operands);
+    if (isNaN(b))
+        return error = true;  //errorfunction
+    else
+        operate(a, b, operator);
+}
+
 
 function checkEnd(check1) {
     console.log('Check end');
@@ -76,25 +100,17 @@ function checkEnd(check1) {
 }
 
 
-function operate(text, operator) {
-    const operands = text.split(`${operator}`).map(x => Number(x));
-    const a = operands[0];
-    const b = operands[1];
-    if (isNaN(b))
-        error = true;
-    else {
-        switch(operator) {
-            case '+': display.textContent = a + b; break;
-            case '-': display.textContent = a - b; break;
-            case '/': display.textContent = a / b; break;
-            case '*': display.textContent = a * b; break;
-        }
+function operate(a, b, operator) {
+    switch(operator) {
+        case '+': display.textContent = a + b; break;
+        case '-': display.textContent = a - b; break;
+        case '/': display.textContent = a / b; break;
+        case '*': display.textContent = a * b; break;
     }
-    console.log(`Error in operation : ${error}`);
 }
 
-function reset(){
-    display.textContent = '';
-    i = 0;
+function setDefaultvalues(){
+    startsWithUnary = false;
+    error = false;
     operator = '';
 }
