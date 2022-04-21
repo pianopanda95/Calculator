@@ -109,8 +109,14 @@ function operate(a, b, operator) {
     }
 }
 
+function errorTrue() {
+    alert('ERROR! Something went wrong.');
+    setDefaultvalues();
+}
+
 function setDefaultvalues(){
     startsWithUnary = false;
     error = false;
     operator = '';
 }
+
