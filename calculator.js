@@ -1,7 +1,9 @@
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const operators = ['+', '-', '/', '*'];
 const unaries = ['+', '-'];
+
 let operator = '';
+let nextOperator = '';
 let startsWithUnary = false;
 let error = false;
 
@@ -32,7 +34,7 @@ function findOperator(text, operator) {
     
     checkStart(check1);
     if (error)
-        return; //errorfunction
+        return errorTrue();
 
     if (opsLength == 0)
         operator = 'none';
@@ -51,8 +53,6 @@ function findOperator(text, operator) {
         console.log('Displaytext stays')
     else
         checkOperation(text, operator, startsWithUnary);
-
-    // if operation button invokes the function check1.pop();
 }
 
 
@@ -75,30 +75,17 @@ function checkOperation(text, operator, startsWithUnary){
     check2[separatorIndex] = '|';
     const check3 = check2.join('').split('|');
 
-    console.log(separatorIndex);
-    console.log(check2);
-    console.log(check3);
-
     const operands = check3.map(x => Number(x));
     const a = operands[0];
     const b = operands[1];
     
     console.log(operands);
+
     if (isNaN(b))
-        return error = true;  //errorfunction
+        return errorTrue();
     else
         operate(a, b, operator);
 }
-
-
-function checkEnd(check1) {
-    console.log('Check end');
-    if (!numbers.includes(check1[check1.length-1]))
-        console.log('Cannot end with operator');
-    else
-        console.log('Continue')
-}
-
 
 function operate(a, b, operator) {
     switch(operator) {
@@ -107,16 +94,18 @@ function operate(a, b, operator) {
         case '/': display.textContent = a / b; break;
         case '*': display.textContent = a * b; break;
     }
+    setDefaultvalues();
 }
 
 function errorTrue() {
     alert('ERROR! Something went wrong.');
     setDefaultvalues();
+    display.textContent = '';
 }
 
-function setDefaultvalues(){
+function setDefaultvalues() {
     startsWithUnary = false;
     error = false;
     operator = '';
+    nextOperator = '';
 }
-
