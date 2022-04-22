@@ -84,6 +84,8 @@ function checkOperation(text, operator, startsWithUnary){
     const separatorIndex = text.indexOf(`${operator}`, startsWithUnary);
     const check2 = Array.from(text);
     check2[separatorIndex] = '|';
+    if (separatorIndex == check2.length -1)
+        return;
     const check3 = check2.join('').split('|');
 
     const operands = check3.map(x => Number(x));
