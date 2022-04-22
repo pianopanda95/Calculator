@@ -44,7 +44,6 @@ function findOperator(text, operator) {
         operator = checkOperator[1]:
         operator = checkOperator[0];
     }
-    console.log(operator);
 
     if (!operator)
         return;
@@ -90,7 +89,7 @@ function checkOperation(text, operator, startsWithUnary){
     const operands = check3.map(x => Number(x));
     const a = operands[0];
     const b = operands[1];
-    
+   
     console.log(operands);
 
     if (isNaN(b))
