@@ -13,20 +13,20 @@ display.textContent = '';
 
 const buttons = Array.from(document.querySelectorAll('button'));
 buttons.map(button => button.addEventListener('click', () => {
+
     if (button.value == 'clear') {
         setDefaultvalues();
         display.textContent = '';
     }
     else if (button.value == 'operate')
         findOperator(display.textContent, operator);
+    else if (operators.includes(button.value)){
+        display.textContent += `${button.value}`
+        opButton(display.textContent);
+    }
     else 
         display.textContent += `${button.value}`
 }));
-
-
-//const operatorButtons = Array.from(document.querySelectorAll('.operator'));
-//operatorButtons.map(opbtn => opbtn.addEventListener('click', () =>
-//checkOp(display.textContent, operator)));
 
 
 function findOperator(text, operator) {
@@ -55,7 +55,6 @@ function findOperator(text, operator) {
 
 
 function checkStart(check1) {
-    console.log('Check start');
     if (operators.includes(check1[0])) {
         (!unaries.includes(check1[0])) ?
         error = true :
@@ -65,6 +64,20 @@ function checkStart(check1) {
     }
     else
         error = false;
+}
+
+function opButton(text) {
+    if (text.length < 4)
+        return;
+    
+    let check4 = text.split('');
+    nextOperator = check4.pop();
+    
+    if (!numbers.includes(check4[check4.length-1])) // ?
+        return;
+    
+    check4 = check4.join('');
+    findOperator(check4, operator);
 }
 
 function checkOperation(text, operator, startsWithUnary){
@@ -92,6 +105,8 @@ function operate(a, b, operator) {
         case '/': display.textContent = a / b; break;
         case '*': display.textContent = a * b; break;
     }
+    if (nextOperator)
+       display.textContent += nextOperator;
     setDefaultvalues();
 }
 
