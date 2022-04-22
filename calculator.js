@@ -96,6 +96,8 @@ function checkOperation(text, operator, startsWithUnary){
 
     if (isNaN(b))
         return errorTrue();
+    else if (operator == '/' && b == 0)
+        return errorTrue();
     else
         operate(a, b, operator);
 }
