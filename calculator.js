@@ -13,8 +13,10 @@ display.textContent = '';
 
 const buttons = Array.from(document.querySelectorAll('button'));
 buttons.map(button => button.addEventListener('click', () => {
-    if (button.value == 'clear')
-        reset();
+    if (button.value == 'clear') {
+        setDefaultvalues();
+        display.textContent = '';
+    }
     else if (button.value == 'operate')
         findOperator(display.textContent, operator);
     else 
@@ -36,21 +38,17 @@ function findOperator(text, operator) {
     if (error)
         return errorTrue();
 
-    if (opsLength == 0)
-        operator = 'none';
-    else if (opsLength == 1) {
-        (startsWithUnary) ?
-        operator = 'none':
+    if (opsLength == 1 && !startsWithUnary)
         operator = checkOperator[0];
-    }
     else if (opsLength > 1) {
         (startsWithUnary) ?
         operator = checkOperator[1]:
         operator = checkOperator[0];
     }
     console.log(operator);
-    if (operator == 'none')
-        console.log('Displaytext stays')
+
+    if (!operator)
+        return;
     else
         checkOperation(text, operator, startsWithUnary);
 }
