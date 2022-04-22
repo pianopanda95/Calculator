@@ -20,12 +20,11 @@ buttons.map(button => button.addEventListener('click', () => {
     }
     else if (button.value == 'operate')
         findOperator(display.textContent, operator);
-    else if (operators.includes(button.value)){
-        display.textContent += `${button.value}`
-        opButton(display.textContent);
-    }
     else 
         display.textContent += `${button.value}`
+    
+    if (operators.includes(button.value))
+        opButton(display.textContent);
 }));
 
 
