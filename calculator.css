@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: rgb(104, 104, 104);
     font-size: 36px;
 }
 
@@ -27,7 +27,12 @@ body {
 
 button {
     background-image: linear-gradient(rgb(248, 159, 26), rgb(255, 102, 0));
+    border: 3px solid;
     border-radius: 5px;
+    border-top-color: rgb(139, 139, 139);
+    border-right-color: rgb(60, 60, 60);
+    border-bottom-color: rgb(60, 60, 60);
+    border-left-color: rgb(139, 139, 139);
     padding: 15px;
     font-size: 24px;
     height: 80px;
