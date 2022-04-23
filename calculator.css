@@ -16,8 +16,7 @@ body {
 }
 
 #display {
-    grid-column-start: 1;
-    grid-column-end: 5;
+    grid-column: 1 / 5;
     background-color: aqua;
     border-radius: 10px;
     border: 1px solid black; 
@@ -34,4 +33,12 @@ button {
     height: 80px;
     text-align: center;
     margin: 2px;
+}
+
+#clear{
+    grid-column: 1 / span 2;
+}
+
+#operate{
+    grid-column: 3 / span 2;
 }
