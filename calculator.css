@@ -6,9 +6,10 @@ body {
 #container {
     display: grid;
     grid-template-columns: auto auto auto auto;
+    max-width: 500px;
     text-align: center;
     background-color: rgb(243, 193, 54);
-    margin: 15% 25%;
+    margin: 10% 20%;
     border: 5px double black;
     border-radius: 20px;
     padding: 10px;
