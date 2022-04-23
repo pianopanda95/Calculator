@@ -5,7 +5,7 @@ body {
 
 #container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25%;
     max-width: 500px;
     text-align: center;
     background-color: rgb(243, 193, 54);
